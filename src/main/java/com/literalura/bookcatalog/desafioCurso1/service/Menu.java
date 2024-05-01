@@ -2,11 +2,13 @@ package com.literalura.bookcatalog.desafioCurso1.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.literalura.bookcatalog.desafioCurso1.model.BrandDto;
+import com.literalura.bookcatalog.desafioCurso1.model.ModelDto;
 
 import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Menu {
 
@@ -38,23 +40,22 @@ public class Menu {
         }
     }
 
-    public static Integer menuBrand(Scanner sc, ConvertData converter, String json) throws JsonProcessingException {
-        List<BrandDto> brands = converter.mapDataToList(json, BrandDto.class);
+    public static Integer menuBrand(Scanner sc, List<BrandDto> brands) {
 
         while (true) {
-            System.out.println("Digite o código da marca de veículo que deseja buscar:");
             System.out.println("***********************************************");
             brands.stream()
                     .sorted(Comparator.comparing(BrandDto::code))
                     .forEach(b -> System.out.printf("Cod: %03d | %s\n", b.code(), b.brandName()));
             System.out.println("***********************************************");
+            System.out.println("Digite o código da marca do veículo para consulta:");
 
             try {
-                Integer escolha = sc.nextInt();
-                boolean codigoValido = brands.stream()
-                        .anyMatch(b -> b.code().equals(escolha));
-                if (codigoValido) {
-                    return escolha;
+                Integer choice = sc.nextInt();
+                boolean validCode = brands.stream()
+                        .anyMatch(b -> b.code().equals(choice));
+                if (validCode) {
+                    return choice;
                 } else {
                     System.out.println("Opção inválida.");
                 }
@@ -62,6 +63,43 @@ public class Menu {
                 System.out.println("Opção inválida.");
                 sc.nextLine();
             }
+
+        }
+    }
+
+    public static Integer menuModel(Scanner sc, List<ModelDto> models) {
+
+        while (true) {
+            System.out.println("***********************************************");
+            models.stream()
+                    .sorted(Comparator.comparing(ModelDto::code))
+                    .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.modelName()));
+            System.out.println("***********************************************");
+            System.out.println("Digite um trecho do nome do veículo para consulta:");
+
+            try {
+                sc.nextLine();
+                String choice = sc.nextLine();
+                boolean validName = models.stream()
+                        .anyMatch(m -> m.modelName().toUpperCase().contains(choice.toUpperCase()));
+                if (validName) {
+                    System.out.println("***********************************************");
+                    models.stream()
+                            .filter(m -> m.modelName().toUpperCase().contains(choice.toUpperCase()))
+                            .sorted(Comparator.comparing(ModelDto::code))
+                            .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.modelName()));
+                    System.out.println("***********************************************");
+                    System.out.println("Digite o código do nome do veículo para consulta:");
+                    return sc.nextInt();
+                } else {
+                    System.out.println("Opção inválida.");
+                }
+            } catch (NumberFormatException | InputMismatchException e) {
+                System.out.println("Opção inválida.");
+                sc.nextLine();
+            }
+
+
 
         }
     }

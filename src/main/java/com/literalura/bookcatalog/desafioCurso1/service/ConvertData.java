@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ConvertData {
 
-    <T> T mapData(String json, Class<T> classe);
-    <T> List<T> mapDataToList(String json, Class<T> classe) throws JsonProcessingException;
+    <T> T mapDataToObject(String json, Class<T> classType) throws JsonProcessingException;
+    <T> List<T> mapDataToList(String json, Class<T> classType) throws JsonProcessingException;
 }
