@@ -27,15 +27,15 @@ public class BookCatalogApplication implements CommandLineRunner {
 		ConvertData converter = new ConvertDataImpl();
 
 		System.out.println("Seja bem vinde ao consultor da FIPE!");
-		String type = Menu.menuVehicleType(sc);
+		String type = Menu.showMenuVehicleType(sc);
 
 		String jsonBrands = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands");
 		List<BrandDto> brands = converter.mapDataToList(jsonBrands, BrandDto.class);
-		Integer brandCode = Menu.menuBrand(sc, brands);
+		Integer brandCode = Menu.showMenuBrand(sc, brands);
 
 		String jsonModels = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models");
 		List<ModelDto> models = converter.mapDataToList(jsonModels, ModelDto.class);
-		Integer modelCode = Menu.menuModel(sc, models);
+		Integer modelCode = Menu.showMenuModel(sc, models);
 
 		String jsonYearsModel = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models/" + modelCode + "/years");
 		List<YearsModelDto> yearsModel = converter.mapDataToList(jsonYearsModel, YearsModelDto.class);

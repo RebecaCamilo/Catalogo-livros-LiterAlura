@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public static String menuVehicleType(Scanner sc) {
+    public static String showMenuVehicleType(Scanner sc) {
         while (true) {
             System.out.println("Selecione a opção com o tipo de veículo que você quer buscar:");
             System.out.println("***********************************************");
@@ -38,7 +38,7 @@ public class Menu {
         }
     }
 
-    public static Integer menuBrand(Scanner sc, List<BrandDto> brands) {
+    public static Integer showMenuBrand(Scanner sc, List<BrandDto> brands) {
 
         while (true) {
             System.out.println("***********************************************");
@@ -65,7 +65,7 @@ public class Menu {
         }
     }
 
-    public static Integer menuModel(Scanner sc, List<ModelDto> models) {
+    public static Integer showMenuModel(Scanner sc, List<ModelDto> models) {
 
         while (true) {
             System.out.println("***********************************************");
@@ -96,8 +96,6 @@ public class Menu {
                 System.out.println("Opção inválida.");
                 sc.nextLine();
             }
-
-
 
         }
     }
