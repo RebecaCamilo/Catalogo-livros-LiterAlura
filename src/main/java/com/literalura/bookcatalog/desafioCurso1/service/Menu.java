@@ -1,6 +1,5 @@
 package com.literalura.bookcatalog.desafioCurso1.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.literalura.bookcatalog.desafioCurso1.model.BrandDto;
 import com.literalura.bookcatalog.desafioCurso1.model.ModelDto;
 
@@ -8,7 +7,6 @@ import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Menu {
 

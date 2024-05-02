@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record DetailsDto(@JsonAlias("price") String value,
-                         @JsonAlias("fuel") String fuel) {
+public record DetailsDto(Integer vehicleType,
+                         @JsonAlias("price") String value,
+                         String brand,
+                         String model,
+                         String modelYear,
+                         String fuel) {
 }
+

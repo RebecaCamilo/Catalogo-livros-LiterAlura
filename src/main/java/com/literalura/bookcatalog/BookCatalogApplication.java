@@ -32,18 +32,10 @@ public class BookCatalogApplication implements CommandLineRunner {
 		String jsonBrands = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands");
 		List<BrandDto> brands = converter.mapDataToList(jsonBrands, BrandDto.class);
 		Integer brandCode = Menu.menuBrand(sc, brands);
-		String brandName = brands.stream()
-				.filter(brand -> brand.code().equals(brandCode))
-				.map(BrandDto::brandName)
-				.findFirst().get();
 
 		String jsonModels = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models");
 		List<ModelDto> models = converter.mapDataToList(jsonModels, ModelDto.class);
 		Integer modelCode = Menu.menuModel(sc, models);
-		String modelName = models.stream()
-				.filter(m -> m.code().equals(modelCode))
-				.map(ModelDto::modelName)
-				.findFirst().get();
 
 		String jsonYearsModel = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models/" + modelCode + "/years");
 		List<YearsModelDto> yearsModel = converter.mapDataToList(jsonYearsModel, YearsModelDto.class);
@@ -51,18 +43,17 @@ public class BookCatalogApplication implements CommandLineRunner {
 		List<Vehicle> vehicles = new ArrayList<>();
 		String jsonValue;
 		DetailsDto valueDto = null;
-		Vehicle vehicle;
-		for (int i = 0; i < yearsModel.size(); i++) {
+		for (YearsModelDto yearModel : yearsModel) {
 			try {
-				jsonValue = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models/" + modelCode + "/years/" + yearsModel.get(i).code());
+				jsonValue = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models/" + modelCode + "/years/" + yearModel.code());
 				valueDto = converter.mapDataToObject(jsonValue, DetailsDto.class);
 			} catch (NullPointerException e) {
 				System.out.println("Não foi possível encontrar as informações desejadas.");
 			}
-			vehicle = new Vehicle(valueDto, "teste", "teste", yearsModel.get(i));
-			System.out.println(vehicle);
-			vehicles.add(vehicle);
+			vehicles.add(new Vehicle(valueDto));
 		}
+
+		vehicles.forEach(System.out::println);
 
 	}
 }

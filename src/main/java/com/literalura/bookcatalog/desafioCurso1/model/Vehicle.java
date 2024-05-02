@@ -1,30 +1,36 @@
 package com.literalura.bookcatalog.desafioCurso1.model;
 
 public class Vehicle {
+    private String vehicleType;
     private String value;
     private String brand;
     private String model;
     private Integer year;
     private String fuel;
 
-    public Vehicle(DetailsDto valueDto, String brand, String model, YearsModelDto yearsModelDto) {
-        this.brand = brand;
-        this.model = model;
-        try {
-            this.value = valueDto.value();
-            String[] parts = yearsModelDto.yearsModelName().split(" ");
-            this.year = Integer.parseInt(parts[0]);
-            this.fuel = valueDto.fuel();
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-            this.value = null;
-            this.year = null;
-            this.fuel = null;
-        }
+    public Vehicle(DetailsDto valueDto) {
+        this.value = valueDto.value();
+        this.brand = valueDto.brand();
+        this.model = valueDto.model();
+        this.year = Integer.parseInt(valueDto.modelYear());
+        this.fuel = valueDto.fuel();
+        this.vehicleType = getVehicleTypeFromNumber(valueDto.vehicleType());
+
+    }
+
+    private String getVehicleTypeFromNumber(Integer vehicleType) {
+        return switch (vehicleType) {
+            case 1 -> "cars";
+            case 2 -> "motorcycles";
+            case 3 -> "trucks";
+            default -> null;
+        };
     }
 
     @Override
     public String toString() {
-        return "[value=" + value +
+        return "Vehicle[vehicleType=" + vehicleType +
+                ", value=" + value +
                 ", brand=" + brand +
                 ", model=" + model +
                 ", year=" + year +
