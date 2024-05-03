@@ -1,7 +1,6 @@
 package com.literalura.bookcatalog.desafioCurso1.service;
 
-import com.literalura.bookcatalog.desafioCurso1.model.BrandDto;
-import com.literalura.bookcatalog.desafioCurso1.model.ModelDto;
+import com.literalura.bookcatalog.desafioCurso1.model.GenericInfoDto;
 
 import java.util.Comparator;
 import java.util.InputMismatchException;
@@ -38,13 +37,13 @@ public class Menu {
         }
     }
 
-    public static Integer showMenuBrand(Scanner sc, List<BrandDto> brands) {
+    public static Integer showMenuBrand(Scanner sc, List<GenericInfoDto> brands) {
 
         while (true) {
             System.out.println("***********************************************");
             brands.stream()
-                    .sorted(Comparator.comparing(BrandDto::code))
-                    .forEach(b -> System.out.printf("Cod: %03d | %s\n", b.code(), b.brandName()));
+                    .sorted(Comparator.comparing(GenericInfoDto::code))
+                    .forEach(b -> System.out.printf("Cod: %03d | %s\n", b.code(), b.description()));
             System.out.println("***********************************************");
             System.out.println("Digite o código da marca do veículo para consulta:");
 
@@ -65,13 +64,13 @@ public class Menu {
         }
     }
 
-    public static Integer showMenuModel(Scanner sc, List<ModelDto> models) {
+    public static Integer showMenuModel(Scanner sc, List<GenericInfoDto> models) {
 
         while (true) {
             System.out.println("***********************************************");
             models.stream()
-                    .sorted(Comparator.comparing(ModelDto::code))
-                    .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.modelName()));
+                    .sorted(Comparator.comparing(GenericInfoDto::code))
+                    .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.description()));
             System.out.println("***********************************************");
             System.out.println("Digite um trecho do nome do veículo para consulta:");
 
@@ -79,13 +78,13 @@ public class Menu {
                 sc.nextLine();
                 String choice = sc.nextLine();
                 boolean validName = models.stream()
-                        .anyMatch(m -> m.modelName().toUpperCase().contains(choice.toUpperCase()));
+                        .anyMatch(m -> m.description().toUpperCase().contains(choice.toUpperCase()));
                 if (validName) {
                     System.out.println("***********************************************");
                     models.stream()
-                            .filter(m -> m.modelName().toUpperCase().contains(choice.toUpperCase()))
-                            .sorted(Comparator.comparing(ModelDto::code))
-                            .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.modelName()));
+                            .filter(m -> m.description().toUpperCase().contains(choice.toUpperCase()))
+                            .sorted(Comparator.comparing(GenericInfoDto::code))
+                            .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.description()));
                     System.out.println("***********************************************");
                     System.out.println("Digite o código do nome do veículo para consulta:");
                     return sc.nextInt();

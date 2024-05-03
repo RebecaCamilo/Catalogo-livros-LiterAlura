@@ -8,7 +8,7 @@ public class Vehicle {
     private Integer year;
     private String fuel;
 
-    public Vehicle(DetailsDto valueDto) {
+    public Vehicle(VehicleDetailsDto valueDto) {
         this.value = valueDto.value();
         this.brand = valueDto.brand();
         this.model = valueDto.model();

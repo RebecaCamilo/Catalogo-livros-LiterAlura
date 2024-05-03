@@ -30,23 +30,23 @@ public class BookCatalogApplication implements CommandLineRunner {
 		String type = Menu.showMenuVehicleType(sc);
 
 		String jsonBrands = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands");
-		List<BrandDto> brands = converter.mapDataToList(jsonBrands, BrandDto.class);
+		List<GenericInfoDto> brands = converter.mapDataToList(jsonBrands, GenericInfoDto.class);
 		Integer brandCode = Menu.showMenuBrand(sc, brands);
 
 		String jsonModels = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models");
-		List<ModelDto> models = converter.mapDataToList(jsonModels, ModelDto.class);
+		List<GenericInfoDto> models = converter.mapDataToList(jsonModels, GenericInfoDto.class);
 		Integer modelCode = Menu.showMenuModel(sc, models);
 
 		String jsonYearsModel = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models/" + modelCode + "/years");
-		List<YearsModelDto> yearsModel = converter.mapDataToList(jsonYearsModel, YearsModelDto.class);
+		List<GenericInfoDto> yearsModel = converter.mapDataToList(jsonYearsModel, GenericInfoDto.class);
 
 		List<Vehicle> vehicles = new ArrayList<>();
 		String jsonValue;
-		DetailsDto valueDto = null;
-		for (YearsModelDto yearModel : yearsModel) {
+		VehicleDetailsDto valueDto = null;
+		for (GenericInfoDto yearModel : yearsModel) {
 			try {
 				jsonValue = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models/" + modelCode + "/years/" + yearModel.code());
-				valueDto = converter.mapDataToObject(jsonValue, DetailsDto.class);
+				valueDto = converter.mapDataToObject(jsonValue, VehicleDetailsDto.class);
 			} catch (NullPointerException e) {
 				System.out.println("Não foi possível encontrar as informações desejadas.");
 			}
