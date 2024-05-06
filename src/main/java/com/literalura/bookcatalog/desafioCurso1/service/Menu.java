@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+    private Scanner sc = new Scanner(System.in);
 
-    public static String showMenuVehicleType(Scanner sc) {
+    public String showMenuVehicleType() {
         while (true) {
             System.out.println("Selecione a opção com o tipo de veículo que você quer buscar:");
             System.out.println("***********************************************");
@@ -20,7 +21,7 @@ public class Menu {
                     [0] Sair""");
             System.out.println("***********************************************");
 
-            String op = sc.nextLine();
+            String op = this.sc.nextLine();
             switch (op) {
                 case "1":
                     return "cars";
@@ -37,18 +38,18 @@ public class Menu {
         }
     }
 
-    public static Integer showMenuBrand(Scanner sc, List<GenericInfoDto> brands) {
+    public String showMenuBrand(List<GenericInfoDto> brands) {
 
         while (true) {
             System.out.println("***********************************************");
             brands.stream()
                     .sorted(Comparator.comparing(GenericInfoDto::code))
-                    .forEach(b -> System.out.printf("Cod: %03d | %s\n", b.code(), b.description()));
+                    .forEach(b -> System.out.printf("Cod: %s | %s\n", b.code(), b.description()));
             System.out.println("***********************************************");
             System.out.println("Digite o código da marca do veículo para consulta:");
 
             try {
-                Integer choice = sc.nextInt();
+                String choice = this.sc.nextLine();
                 boolean validCode = brands.stream()
                         .anyMatch(b -> b.code().equals(choice));
                 if (validCode) {
@@ -58,25 +59,24 @@ public class Menu {
                 }
             } catch (NumberFormatException | InputMismatchException e) {
                 System.out.println("Opção inválida.");
-                sc.nextLine();
+                this.sc.nextLine();
             }
 
         }
     }
 
-    public static Integer showMenuModel(Scanner sc, List<GenericInfoDto> models) {
+    public Integer showMenuModel(List<GenericInfoDto> models) {
 
         while (true) {
             System.out.println("***********************************************");
             models.stream()
                     .sorted(Comparator.comparing(GenericInfoDto::code))
-                    .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.description()));
+                    .forEach(m -> System.out.printf("Cod: %s | %s\n", m.code(), m.description()));
             System.out.println("***********************************************");
             System.out.println("Digite um trecho do nome do veículo para consulta:");
 
             try {
-                sc.nextLine();
-                String choice = sc.nextLine();
+                String choice = this.sc.nextLine();
                 boolean validName = models.stream()
                         .anyMatch(m -> m.description().toUpperCase().contains(choice.toUpperCase()));
                 if (validName) {
@@ -84,16 +84,16 @@ public class Menu {
                     models.stream()
                             .filter(m -> m.description().toUpperCase().contains(choice.toUpperCase()))
                             .sorted(Comparator.comparing(GenericInfoDto::code))
-                            .forEach(m -> System.out.printf("Cod: %05d | %s\n", m.code(), m.description()));
+                            .forEach(m -> System.out.printf("Cod: %s | %s\n", m.code(), m.description()));
                     System.out.println("***********************************************");
                     System.out.println("Digite o código do nome do veículo para consulta:");
-                    return sc.nextInt();
+                    return this.sc.nextInt();
                 } else {
                     System.out.println("Opção inválida.");
                 }
             } catch (NumberFormatException | InputMismatchException e) {
                 System.out.println("Opção inválida.");
-                sc.nextLine();
+                this.sc.nextLine();
             }
 
         }
