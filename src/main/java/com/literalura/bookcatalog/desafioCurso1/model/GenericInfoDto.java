@@ -4,6 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record GenericInfoDto(Integer code,
+public record GenericInfoDto(String code,
                              @JsonAlias("name") String description) {
 }

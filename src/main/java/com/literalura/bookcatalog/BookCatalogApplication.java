@@ -2,7 +2,9 @@ package com.literalura.bookcatalog;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.literalura.bookcatalog.desafioCurso1.conexao.api.ApiConsumer;
-import com.literalura.bookcatalog.desafioCurso1.model.*;
+import com.literalura.bookcatalog.desafioCurso1.model.GenericInfoDto;
+import com.literalura.bookcatalog.desafioCurso1.model.Vehicle;
+import com.literalura.bookcatalog.desafioCurso1.model.VehicleDetailsDto;
 import com.literalura.bookcatalog.desafioCurso1.service.ConvertData;
 import com.literalura.bookcatalog.desafioCurso1.service.ConvertDataImpl;
 import com.literalura.bookcatalog.desafioCurso1.service.Menu;
@@ -12,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @SpringBootApplication
 public class BookCatalogApplication implements CommandLineRunner {
@@ -23,19 +24,19 @@ public class BookCatalogApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws JsonProcessingException {
-		Scanner sc = new Scanner(System.in);
+		Menu menu = new Menu();
 		ConvertData converter = new ConvertDataImpl();
 
 		System.out.println("Seja bem vinde ao consultor da FIPE!");
-		String type = Menu.showMenuVehicleType(sc);
+		String type = menu.showMenuVehicleType();
 
 		String jsonBrands = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands");
 		List<GenericInfoDto> brands = converter.mapDataToList(jsonBrands, GenericInfoDto.class);
-		Integer brandCode = Menu.showMenuBrand(sc, brands);
+		String brandCode = menu.showMenuBrand(brands);
 
 		String jsonModels = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models");
 		List<GenericInfoDto> models = converter.mapDataToList(jsonModels, GenericInfoDto.class);
-		Integer modelCode = Menu.showMenuModel(sc, models);
+		Integer modelCode = menu.showMenuModel(models);
 
 		String jsonYearsModel = ApiConsumer.getData("https://parallelum.com.br/fipe/api/v2/" + type + "/brands/" + brandCode + "/models/" + modelCode + "/years");
 		List<GenericInfoDto> yearsModel = converter.mapDataToList(jsonYearsModel, GenericInfoDto.class);
@@ -54,6 +55,5 @@ public class BookCatalogApplication implements CommandLineRunner {
 		}
 
 		vehicles.forEach(System.out::println);
-
 	}
 }
