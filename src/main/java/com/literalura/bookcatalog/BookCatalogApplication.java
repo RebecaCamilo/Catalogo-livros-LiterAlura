@@ -1,6 +1,9 @@
 package com.literalura.bookcatalog;
 
+import com.literalura.bookcatalog.model.dto.BookRecord;
 import com.literalura.bookcatalog.provider.api.GutendexApi;
+import com.literalura.bookcatalog.service.DataConverter;
+import com.literalura.bookcatalog.service.DataConverterImpl;
 import com.literalura.bookcatalog.service.Menu;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +18,7 @@ public class BookCatalogApplication implements CommandLineRunner {
 
 	Scanner scan = new Scanner(System.in);
 	GutendexApi gutendexApi = new GutendexApi();
+	DataConverter dataConverter = new DataConverterImpl();
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookCatalogApplication.class, args);
@@ -33,6 +37,9 @@ public class BookCatalogApplication implements CommandLineRunner {
 		System.out.println(res.body());
 
 		System.out.println("AGORA AQUI");
+
+		BookRecord book = dataConverter.obterDados(res.body(), BookRecord.class);
+		System.out.println(book);
 
 	}
 
