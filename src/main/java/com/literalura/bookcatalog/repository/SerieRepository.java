@@ -1,8 +1,8 @@
 package com.literalura.bookcatalog.repository;
 
-import br.com.alura.screenmatch.model.Categoria;
-import br.com.alura.screenmatch.model.Episodio;
-import br.com.alura.screenmatch.model.Serie;
+import com.literalura.bookcatalog.model.Categoria;
+import com.literalura.bookcatalog.model.Episodio;
+import com.literalura.bookcatalog.model.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
