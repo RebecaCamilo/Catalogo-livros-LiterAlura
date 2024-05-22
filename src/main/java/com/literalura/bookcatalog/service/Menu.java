@@ -23,9 +23,21 @@ public class Menu {
             return sc.nextLine();
     }
 
-    public String getBookByTitle() {
+    public String askTitle() {
         System.out.println("Informe o nome do livro que deseja procurar");
         return sc.nextLine();
+    }
+
+    public Integer askYear() {
+        while (true) {
+            System.out.println("Informe o ano que deseja pesquisar");
+            try {
+                var yearString = sc.nextLine();
+                return Integer.parseInt(yearString);
+            } catch (NumberFormatException e) {
+                System.out.println("Input inválido, tente novamente");
+            }
+        }
     }
 
     public void showBookInfo(Book book) {

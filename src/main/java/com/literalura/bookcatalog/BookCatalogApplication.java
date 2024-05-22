@@ -40,11 +40,10 @@ public class BookCatalogApplication implements CommandLineRunner {
 					getBooks(menu, bookService);
 					break;
 				case "3":
-					System.out.println("Digitou 3");
-					getAuthors(menu, bookService);
+					getAuthors(bookService);
 					break;
 				case "4":
-					System.out.println("Digitou 4");
+					getLivingAuthorsYear(menu, bookService);
 					break;
 				case "5":
 					System.out.println("Digitou 5");
@@ -55,12 +54,11 @@ public class BookCatalogApplication implements CommandLineRunner {
 				default:
 					System.out.println("Opção inválida");
 			}
-
 		}
 
 	}
 	private void getBookByTitle(Menu menu, BookService bookService) {
-		String title = menu.getBookByTitle();
+		String title = menu.askTitle();
 		Book book = bookService.getBookByTitle(title);
 		if (book != null) {
 			menu.showBookInfo(book);
@@ -72,9 +70,19 @@ public class BookCatalogApplication implements CommandLineRunner {
 		books.forEach(menu::showBookInfo);
 	}
 
-	private void getAuthors(Menu menu, BookService bookService) {
+	private void getAuthors(BookService bookService) {
 		List<Author> authors = bookService.getAuthors();
 		authors.forEach(System.out::println);
+	}
+
+	private void getLivingAuthorsYear(Menu menu, BookService bookService) {
+		Integer year = menu.askYear();
+		List<Author> authors = bookService.getLivingAuthorsYear(year);
+		if (!authors.isEmpty()) {
+			authors.forEach(System.out::println);
+		} else {
+			System.out.println("Não foi encontrado nenhum registro de autor vivo neste ano específico.");
+		}
 	}
 
 }
