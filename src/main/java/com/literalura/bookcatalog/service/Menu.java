@@ -50,4 +50,28 @@ public class Menu {
         System.out.println();
     }
 
+    public String askLanguage() {
+        while (true) {
+            System.out.println("Informe o código do idioma para realizar a busca");
+            System.out.println("[es] espanhol");
+            System.out.println("[en] inglês");
+            System.out.println("[fr] francês");
+            System.out.println("[pt] português");
+
+            var language = sc.nextLine();
+
+            switch (language) {
+                case "es":
+                    return language;
+                case "en":
+                    return language;
+                case "fr":
+                    return language;
+                case "pt":
+                    return language;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        }
+    }
 }

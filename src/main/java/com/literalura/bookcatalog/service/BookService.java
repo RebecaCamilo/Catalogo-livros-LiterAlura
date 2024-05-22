@@ -86,4 +86,7 @@ public class BookService {
         return authorRepository.findLivingAuthorsByYear(year);
     }
 
+    public List<Book> getBooksByLanguage(String language) {
+        return bookRepository.findByLanguages(language);
+    }
 }

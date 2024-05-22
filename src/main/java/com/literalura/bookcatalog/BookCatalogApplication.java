@@ -33,30 +33,24 @@ public class BookCatalogApplication implements CommandLineRunner {
 		while (true) {
 
 			switch (menu.showMenu()) {
-				case "1":
-					getBookByTitle(menu, bookService);
-					break;
-				case "2":
-					getBooks(menu, bookService);
-					break;
-				case "3":
-					getAuthors(bookService);
-					break;
-				case "4":
-					getLivingAuthorsYear(menu, bookService);
-					break;
-				case "5":
+				case "1" -> getBookByTitle(menu, bookService);
+				case "2" -> getBooks(menu, bookService);
+				case "3" -> getAuthors(bookService);
+				case "4" -> getLivingAuthorsYear(menu, bookService);
+				case "5" -> {
 					System.out.println("Digitou 5");
-					break;
-				case "0":
+					getBooksByLanguage(menu, bookService);
+				}
+				case "0" -> {
 					System.out.println("Finalizando programa...");
 					System.exit(0);
-				default:
-					System.out.println("Opção inválida");
+				}
+				default -> System.out.println("Opção inválida");
 			}
 		}
 
 	}
+
 	private void getBookByTitle(Menu menu, BookService bookService) {
 		String title = menu.askTitle();
 		Book book = bookService.getBookByTitle(title);
@@ -82,6 +76,17 @@ public class BookCatalogApplication implements CommandLineRunner {
 			authors.forEach(System.out::println);
 		} else {
 			System.out.println("Não foi encontrado nenhum registro de autor vivo neste ano específico.");
+		}
+	}
+
+
+	private void getBooksByLanguage(Menu menu, BookService bookService) {
+		String language = menu.askLanguage();
+		List<Book> books = bookService.getBooksByLanguage(language);
+		if (!books.isEmpty()) {
+			books.forEach(menu::showBookInfo);
+		} else {
+			System.out.println("Não foi encontrado nenhum registro de livro correspondente a este idioma.");
 		}
 	}
 
