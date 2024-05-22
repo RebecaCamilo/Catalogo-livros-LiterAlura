@@ -1,5 +1,6 @@
 package com.literalura.bookcatalog;
 
+import com.literalura.bookcatalog.model.domain.Author;
 import com.literalura.bookcatalog.model.domain.Book;
 import com.literalura.bookcatalog.provider.repository.AuthorRepository;
 import com.literalura.bookcatalog.provider.repository.BookRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.List;
 
 @SpringBootApplication
 public class BookCatalogApplication implements CommandLineRunner {
@@ -34,10 +37,11 @@ public class BookCatalogApplication implements CommandLineRunner {
 					getBookByTitle(menu, bookService);
 					break;
 				case "2":
-					System.out.println("Digitou 2");
+					getBooks(menu, bookService);
 					break;
 				case "3":
 					System.out.println("Digitou 3");
+					getAuthors(menu, bookService);
 					break;
 				case "4":
 					System.out.println("Digitou 4");
@@ -61,6 +65,16 @@ public class BookCatalogApplication implements CommandLineRunner {
 		if (book != null) {
 			menu.showBookInfo(book);
 		}
+	}
+
+	private void getBooks(Menu menu, BookService bookService) {
+		List<Book> books = bookService.getBooks();
+		books.forEach(menu::showBookInfo);
+	}
+
+	private void getAuthors(Menu menu, BookService bookService) {
+		List<Author> authors = bookService.getAuthors();
+		authors.forEach(System.out::println);
 	}
 
 }

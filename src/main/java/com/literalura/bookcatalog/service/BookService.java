@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -72,4 +73,14 @@ public class BookService {
     private boolean existsAuthorByName(String name) {
         return authorRepository.existsByName(name);
     }
+
+    public List<Book> getBooks() {
+        return bookRepository.findAll();
+    }
+
+    public List<Author> getAuthors() {
+        return authorRepository.findAll();
+    }
+
+
 }

@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.StringJoiner;
+
 @Entity
 @Table(name = "BOOKS")
 @NoArgsConstructor
@@ -35,6 +37,10 @@ public class Book {
         this.languages = bookDto.languages().get(0);
         this.downloads = bookDto.downloads();
         this.author = author;
+    }
 
+    @Override
+    public String toString() {
+        return this.title;
     }
 }

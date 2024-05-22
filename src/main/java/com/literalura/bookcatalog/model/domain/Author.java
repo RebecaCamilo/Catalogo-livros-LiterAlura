@@ -1,19 +1,14 @@
 package com.literalura.bookcatalog.model.domain;
 
 import com.literalura.bookcatalog.model.dto.AuthorDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "AUTHORS")
@@ -29,7 +24,7 @@ public class Author {
     private Integer birthYear;
     private Integer deathYear;
 
-    @OneToMany(mappedBy = "author", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(mappedBy = "author", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<>();
 
     public Author(AuthorDto authorDto) {
@@ -42,4 +37,15 @@ public class Author {
         this.books.add(book);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("******************** AUTOR ********************\n");
+        sb.append("Nome: ").append(name).append("\n");
+        sb.append("Ano de nascimento: ").append(birthYear).append("\n");
+        sb.append("Ano de falecimento: ").append(deathYear).append("\n");
+        sb.append("Livros: ").append(books).append("\n");
+        sb.append("***********************************************\n");
+        return sb.toString();
+    }
 }
