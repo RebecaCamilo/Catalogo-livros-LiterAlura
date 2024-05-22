@@ -1,5 +1,6 @@
 package com.literalura.bookcatalog.model.domain;
 
+import com.literalura.bookcatalog.model.dto.BookDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -28,4 +29,12 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
     private Author author;
+
+    public Book(BookDto bookDto, Author author) {
+        this.title = bookDto.title();
+        this.languages = bookDto.languages().get(0);
+        this.downloads = bookDto.downloads();
+        this.author = author;
+
+    }
 }

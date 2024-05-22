@@ -1,5 +1,6 @@
 package com.literalura.bookcatalog.model.domain;
 
+import com.literalura.bookcatalog.model.dto.AuthorDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -31,7 +32,14 @@ public class Author {
     @OneToMany(mappedBy = "author", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Set<Book> books = new HashSet<>();
 
+    public Author(AuthorDto authorDto) {
+        this.name = authorDto.name();
+        this.birthYear = authorDto.birthYear();
+        this.deathYear = authorDto.deathYear();
+    }
+
     public void addBook(Book book) {
         this.books.add(book);
     }
+
 }
