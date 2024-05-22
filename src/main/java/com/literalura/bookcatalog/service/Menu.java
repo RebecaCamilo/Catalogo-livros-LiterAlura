@@ -15,8 +15,7 @@ public class Menu {
                     [3] Listar autores registrados
                     [4] Listar autores vivos em um ano específico
                     [5] Listar livros em um idioma específico
-                    [0] Sair
-                    """);
+                    [0] Sair""");
             System.out.println("***********************************************");
 
             String op = sc.nextLine();

@@ -26,7 +26,7 @@ public class BookService {
         ResultDto bookResp = dataConverter.obterDados(res.body(), ResultDto.class);
         if (!bookResp.results().isEmpty()) {
             System.out.println("-----------------------------------------");
-            List<AuthorDto> author = bookResp.results().get(0).authors();
+            AuthorDto author = bookResp.results().get(0).authors().get(0);
             System.out.println(author);
             System.out.println("-----------------------------------------");
             BookDto bookRecord = bookResp.results().get(0);
