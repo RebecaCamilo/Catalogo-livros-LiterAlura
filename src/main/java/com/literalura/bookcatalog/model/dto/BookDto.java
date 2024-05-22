@@ -7,8 +7,8 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record BookDto(@JsonAlias String title,
-                      @JsonAlias List<AuthorDto> authors,
-                      @JsonAlias List<String> languages,
-                      @JsonAlias Integer download_count) {
+                      @JsonAlias AuthorDto author,
+                      @JsonAlias String language,
+                      @JsonAlias("download_count") Integer downloads) {
 
 }
