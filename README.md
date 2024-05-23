@@ -23,3 +23,5 @@ O Literalura permite que o usuário busque títulos do Project Gutenberg, por me
 - Listar autores vivos salvos de acordo com ano escolhido pelo usuário.
 - Listar livros salvos de acordo com idioma escolhido pelo usuário.
 - Interface simples e interativa com o usuário através do terminal.
+
+https://github.com/RebecaCamilo/Catalogo-livros-LiterAlura/assets/71824475/7a0b783f-44cf-4f70-8168-5182f79cf7cb
